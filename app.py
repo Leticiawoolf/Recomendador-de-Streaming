@@ -81,11 +81,16 @@ with st.sidebar:
     st.divider()
     st.subheader("Catálogo e Gênero")
     fmt = st.selectbox("Formato", ["Qualquer", "Filme", "Série"])
-    gnr = st.selectbox("Gênero Principal", ["Qualquer", "Comédia", "Drama", "Ação", "Documentário", "Ficção Científica", "Romance", "Terror", "Animação", "Suspense"])
+    gnr = st.selectbox("Gênero Principal", ["Qualquer", "Comédia", "Drama", "Ação", "Documentário", "Ficção Científica", "Romance", "Terror", "Animação"])
     
     st.divider()
     st.subheader("Características")
-    rt = st.slider("Duração máxima (minutos)", 30, 180, 120, step=15)
+    if fmt == "Série":
+        max_eps = st.slider("Número máximo de episódios", 1, 500, 100, step=10)
+        rt = None
+    else:
+        rt = st.slider("Duração máxima (minutos)", 30, 180, 120, step=15)
+        max_eps = None
     rt_min = st.slider("Nota Mínima (IMDb)", 0.0, 10.0, 0.0, step=0.5)
     
     st.divider()
@@ -108,7 +113,7 @@ if search_btn:
         jw_genres_map = {
             "Comédia": "cmy", "Drama": "drm", "Ação": "act", 
             "Documentário": "doc", "Ficção Científica": "scf", 
-            "Romance": "rma", "Terror": "hrr", "Animação": "ani", "Suspense": "trl"
+            "Romance": "rma", "Terror": "hrr", "Animação": "ani"
         }
         
         provider_slugs = {
@@ -168,9 +173,14 @@ if search_btn:
                 if fmt == "Série" and getattr(item, 'object_type', '') != 'SHOW':
                     continue
                     
-                runtime = getattr(item, 'runtime_minutes', 0)
-                if runtime and runtime > rt:
-                    continue
+                if rt is not None:
+                    runtime = getattr(item, 'runtime_minutes', 0)
+                    if runtime and runtime > rt:
+                        continue
+                if max_eps is not None and getattr(item, 'object_type', '') == 'SHOW':
+                    episodes = getattr(item, 'total_episode_count', 0)
+                    if episodes and episodes > max_eps:
+                        continue
                 
                 score = 0
                 if hasattr(item, 'scoring') and item.scoring:
