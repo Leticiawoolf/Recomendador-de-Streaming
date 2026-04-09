@@ -81,7 +81,7 @@ with st.sidebar:
     st.divider()
     st.subheader("Catálogo e Gênero")
     fmt = st.selectbox("Formato", ["Qualquer", "Filme", "Série"])
-    gnr = st.selectbox("Gênero Principal", ["Qualquer", "Comédia", "Drama", "Ação", "Documentário", "Ficção Científica", "Romance", "Terror", "Animação"])
+    gnr = st.selectbox("Gênero Principal", ["Qualquer", "Comédia", "Drama", "Ação", "Documentário", "Ficção Científica", "Romance", "Terror", "Animação", "Suspense"])
     
     st.divider()
     st.subheader("Características")
@@ -108,7 +108,7 @@ if search_btn:
         jw_genres_map = {
             "Comédia": "cmy", "Drama": "drm", "Ação": "act", 
             "Documentário": "doc", "Ficção Científica": "scf", 
-            "Romance": "rma", "Terror": "hrr", "Animação": "ani"
+            "Romance": "rma", "Terror": "hrr", "Animação": "ani", "Suspense": "thr"
         }
         
         provider_slugs = {
