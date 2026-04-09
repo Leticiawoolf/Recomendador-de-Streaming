@@ -86,11 +86,11 @@ with st.sidebar:
     st.divider()
     st.subheader("Características")
     if fmt == "Série":
-        max_eps = st.slider("Número máximo de episódios", 1, 500, 100, step=10)
+        max_seasons = st.slider("Número máximo de temporadas", 1, 30, 5, step=1)
         rt = None
     else:
         rt = st.slider("Duração máxima (minutos)", 30, 180, 120, step=15)
-        max_eps = None
+        max_seasons = None
     rt_min = st.slider("Nota Mínima (IMDb)", 0.0, 10.0, 0.0, step=0.5)
     
     st.divider()
@@ -177,9 +177,9 @@ if search_btn:
                     runtime = getattr(item, 'runtime_minutes', 0)
                     if runtime and runtime > rt:
                         continue
-                if max_eps is not None and getattr(item, 'object_type', '') == 'SHOW':
-                    episodes = getattr(item, 'total_episode_count', 0)
-                    if episodes and episodes > max_eps:
+                if max_seasons is not None and getattr(item, 'object_type', '') == 'SHOW':
+                    seasons = getattr(item, 'total_season_count', 0)
+                    if seasons and seasons > max_seasons:
                         continue
                 
                 score = 0
