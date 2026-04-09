@@ -108,7 +108,7 @@ if search_btn:
         jw_genres_map = {
             "Comédia": "cmy", "Drama": "drm", "Ação": "act", 
             "Documentário": "doc", "Ficção Científica": "scf", 
-            "Romance": "rma", "Terror": "hrr", "Animação": "ani", "Suspense": "thr"
+            "Romance": "rma", "Terror": "hrr", "Animação": "ani", "Suspense": "trl"
         }
         
         provider_slugs = {
